@@ -5,7 +5,6 @@ import { issues } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { getCurrentUser } from '@/lib/dal'
 import { z } from 'zod'
-
 // Define Zod schema for issue validation
 const IssueSchema = z.object({
   title: z

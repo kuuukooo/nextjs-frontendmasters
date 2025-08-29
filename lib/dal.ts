@@ -3,7 +3,6 @@ import { getSession } from './auth'
 import { eq } from 'drizzle-orm'
 import { cache } from 'react'
 import { issues, users } from '@/db/schema'
-
 // Current user
 export const getCurrentUser = async () => {
   const session = await getSession()
@@ -34,6 +33,8 @@ export const getUserByEmail = async (email: string) => {
 }
 
 export async function getIssues() {
+  'use cache'
+  cacheTag('issues')
   try {
     const result = await db.query.issues.findMany({
       with: {

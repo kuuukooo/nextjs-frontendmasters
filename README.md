@@ -1,6 +1,6 @@
-# Linear Clone
-
-A project management application built with Next.js, inspired by Linear.
+## Next.js Fundamentals, v4
+This project management application is built with Next.js, inspired by Linear. It's part of the [Next.js Fundamentals, v4](https://frontendmasters.com/courses/next-js-v4/) course on Frontend Masters.
+[![Frontend Masters](https://static.frontendmasters.com/assets/brand/logos/full.png)](https://frontendmasters.com/courses/next-js-v4/)
 
 ## Features
 
@@ -11,68 +11,37 @@ A project management application built with Next.js, inspired by Linear.
 
 ## Tech Stack
 
-- [Next.js 13+](https://nextjs.org/) with App Router
+- [Next.js 15+](https://nextjs.org/) with App Router
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/) for styling
-- [Prisma](https://www.prisma.io/) for database ORM
 - [PostgreSQL](https://www.postgresql.org/) for database
-- [NextAuth.js](https://next-auth.js.org/) for authentication
 
 ## Getting Started
 
+To get started with this project, follow the lessons located in the `/lessons` directory. Each lesson provides step-by-step instructions to guide you through the development process.
+
 ### Prerequisites
 
-- Node.js 16+ and npm/yarn
+- Node.js 22+ and npm/yarn
 - PostgreSQL database (or use a service like [Neon](https://neon.tech/))
 
 ### Installation
 
-1. Clone the repository
+Follow the instructions provided in the `/lessons` directory. The lessons will cover the following steps:
 
-   ```bash
-   git clone https://github.com/yourusername/linear-clone.git
-   cd linear-clone
-   ```
-
-2. Install dependencies
-
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. Copy the `.env.example` file to `.env.local` and update the values
-
-   ```bash
-   cp .env.example .env.local
-   ```
-
-4. Set up your database and update the `DATABASE_URL` in `.env.local`
-
-5. Run database migrations
-
-   ```bash
-   npx prisma db push
-   ```
-
-6. Start the development server
-
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-7. Open [http://localhost:3000](http://localhost:3000) in your browser
+1. Cloning the repository.
+2. Installing dependencies.
+3. Setting up environment variables.
+4. Configuring the database.
+5. Running database migrations.
+6. Starting the development server.
 
 ## Project Structure
 
 - `app/` - Next.js App Router pages and layouts
-- `app/api/` - API routes for authentication and issues
+- `app/api/` - API routes
 - `app/components/` - Reusable UI components
 - `lib/` - Utility functions and libraries
-- `prisma/` - Database schema and client
 
 ## License
 
