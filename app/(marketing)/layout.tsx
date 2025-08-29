@@ -1,8 +1,5 @@
 import Link from 'next/link'
-
 import { Timestamp } from '../components/Timestamp'
-import { Suspense } from 'react'
-import DashboardButton from '../components/DashboardButton'
 import Button from '../components/ui/Button'
 
 export default async function MarketingLayout({
@@ -40,20 +37,14 @@ export default async function MarketingLayout({
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            <Suspense
-              fallback={
-                <div className="flex items-center space-x-4">
-                  <Link href="/signin">
-                    <Button variant="outline">Sign in</Button>
-                  </Link>
-                  <Link href="/signup">
-                    <Button>Sign up</Button>
-                  </Link>
-                </div>
-              }
-            >
-              <DashboardButton />
-            </Suspense>
+            <div className="flex items-center space-x-4">
+              <Link href="/signin">
+                <Button variant="outline">Sign in</Button>
+              </Link>
+              <Link href="/signup">
+                <Button>Sign up</Button>
+              </Link>
+            </div>
           </div>
         </div>
       </header>

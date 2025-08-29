@@ -68,6 +68,7 @@ interface PlanCardProps {
   highlighted?: boolean
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function PlanCard({
   title,
   price,

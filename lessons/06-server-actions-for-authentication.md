@@ -8,9 +8,6 @@ Server Actions, also known as server functions, are a React feature enabling cli
 //....
 export async function signIn(formData: FormData): Promise<ActionResponse> {
   try {
-    // Add a small delay to simulate network latency
-    await mockDelay(700)
-
     // Extract data from form
     const data = {
       email: formData.get('email') as string,
@@ -70,9 +67,6 @@ export async function signIn(formData: FormData): Promise<ActionResponse> {
 
 export async function signUp(formData: FormData): Promise<ActionResponse> {
   try {
-    // Add a small delay to simulate network latency
-    await mockDelay(700)
-
     // Extract data from form
     const data = {
       email: formData.get('email') as string,
