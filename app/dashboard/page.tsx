@@ -48,12 +48,12 @@ export default async function DashboardPage() {
                   </div>
                   <div className="col-span-2">
                     <Badge status={issue.status as Status}>
-                      {ISSUE_STATUS[issue.status as Status].label}
+                      {ISSUE_STATUS[issue.status as Status]?.label || issue.status}
                     </Badge>
                   </div>
                   <div className="col-span-2">
                     <Badge priority={issue.priority as Priority}>
-                      {ISSUE_PRIORITY[issue.priority as Priority].label}
+                      {ISSUE_PRIORITY[issue.priority as Priority]?.label || issue.priority}
                     </Badge>
                   </div>
                   <div className="col-span-3 text-sm text-gray-500 dark:text-gray-400">

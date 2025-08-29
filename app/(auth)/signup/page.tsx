@@ -33,7 +33,7 @@ export default function SignUpPage() {
 
       // Handle successful submission
       if (result.success) {
-        toast.success('Account created successfully')
+        toast.success('Cuenta creada de forma exitosa')
         router.push('/dashboard')
       }
 
@@ -41,7 +41,7 @@ export default function SignUpPage() {
     } catch (err) {
       return {
         success: false,
-        message: (err as Error).message || 'An error occurred',
+        message: (err as Error).message || 'Un error ocurrió',
         errors: undefined,
       }
     }

@@ -53,12 +53,11 @@ export default function IssueForm({
     }
 
     try {
-      // Call the appropriate action based on whether we're editing or creating
+      
       const result = isEditing
         ? await updateIssue(Number(issue!.id), data)
         : await createIssue(data)
 
-      // Handle successful submission
       if (result.success) {
         router.refresh()
         if (!isEditing) {
@@ -187,7 +186,7 @@ export default function IssueForm({
           onClick={() => router.back()}
           disabled={isPending}
         >
-          Cancel
+          Cancelar
         </Button>
         <Button type="submit" isLoading={isPending}>
           {isEditing ? 'Actualizar Incidencia' : 'Crear Incidencia'}
