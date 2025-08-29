@@ -13,7 +13,7 @@ import {
   FormSelect,
   FormError,
 } from './ui/Form'
-import { createIssue, updateIssue, ActionResponse } from '@/app/actions/issues'
+import { createIssue, ActionResponse, updateIssue } from '@/app/actions/issues'
 
 interface IssueFormProps {
   issue?: Issue
@@ -53,12 +53,11 @@ export default function IssueForm({
     }
 
     try {
-      // Call the appropriate action based on whether we're editing or creating
+      
       const result = isEditing
         ? await updateIssue(Number(issue!.id), data)
         : await createIssue(data)
 
-      // Handle successful submission
       if (result.success) {
         router.refresh()
         if (!isEditing) {
@@ -70,7 +69,7 @@ export default function IssueForm({
     } catch (err) {
       return {
         success: false,
-        message: (err as Error).message || 'An error occurred',
+        message: (err as Error).message || 'Un error ocurrió',
         errors: undefined,
       }
     }
@@ -101,11 +100,11 @@ export default function IssueForm({
       )}
 
       <FormGroup>
-        <FormLabel htmlFor="title">Title</FormLabel>
+        <FormLabel htmlFor="title">Titulo</FormLabel>
         <FormInput
           id="title"
           name="title"
-          placeholder="Issue title"
+          placeholder="Titulo de la incidencia"
           defaultValue={issue?.title || ''}
           required
           minLength={3}
@@ -122,11 +121,11 @@ export default function IssueForm({
       </FormGroup>
 
       <FormGroup>
-        <FormLabel htmlFor="description">Description</FormLabel>
+        <FormLabel htmlFor="description">Descripción</FormLabel>
         <FormTextarea
           id="description"
           name="description"
-          placeholder="Describe the issue..."
+          placeholder="Describe la incidencia..."
           rows={4}
           defaultValue={issue?.description || ''}
           disabled={isPending}
@@ -142,7 +141,7 @@ export default function IssueForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormGroup>
-          <FormLabel htmlFor="status">Status</FormLabel>
+          <FormLabel htmlFor="status">Estado</FormLabel>
           <FormSelect
             id="status"
             name="status"
@@ -161,7 +160,7 @@ export default function IssueForm({
         </FormGroup>
 
         <FormGroup>
-          <FormLabel htmlFor="priority">Priority</FormLabel>
+          <FormLabel htmlFor="priority">Prioridad</FormLabel>
           <FormSelect
             id="priority"
             name="priority"
@@ -187,10 +186,10 @@ export default function IssueForm({
           onClick={() => router.back()}
           disabled={isPending}
         >
-          Cancel
+          Cancelar
         </Button>
         <Button type="submit" isLoading={isPending}>
-          {isEditing ? 'Update Issue' : 'Create Issue'}
+          {isEditing ? 'Actualizar Incidencia' : 'Crear Incidencia'}
         </Button>
       </div>
     </Form>

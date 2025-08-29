@@ -1,10 +1,10 @@
 import { InferSelectModel, relations } from 'drizzle-orm'
 import { pgTable, serial, text, timestamp, pgEnum } from 'drizzle-orm/pg-core'
 
-// Enums for issue status and priority
+// Enums for issue status and priority (keep English values for DB compatibility)
 export const statusEnum = pgEnum('status', [
   'backlog',
-  'todo',
+  'todo', 
   'in_progress',
   'done',
 ])
@@ -46,16 +46,16 @@ export const usersRelations = relations(users, ({ many }) => ({
 export type Issue = InferSelectModel<typeof issues>
 export type User = InferSelectModel<typeof users>
 
-// Status and priority labels for display
+
 export const ISSUE_STATUS = {
-  backlog: { label: 'Backlog', value: 'backlog' },
-  todo: { label: 'Todo', value: 'todo' },
-  in_progress: { label: 'In Progress', value: 'in_progress' },
-  done: { label: 'Done', value: 'done' },
+  backlog: { label: 'Acumulado', value: 'backlog' },
+  todo: { label: 'Pendiente', value: 'todo' },
+  in_progress: { label: 'En Progreso', value: 'in_progress' },
+  done: { label: 'Hecho', value: 'done' },
 }
 
 export const ISSUE_PRIORITY = {
-  low: { label: 'Low', value: 'low' },
-  medium: { label: 'Medium', value: 'medium' },
-  high: { label: 'High', value: 'high' },
+  low: { label: 'Bajo', value: 'low' },
+  medium: { label: 'Medio', value: 'medium' },
+  high: { label: 'Alto', value: 'high' },
 }

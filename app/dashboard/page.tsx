@@ -14,12 +14,12 @@ export default async function DashboardPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl font-bold">Issues</h1>
+        <h1 className="text-2xl font-bold">Incidencias</h1>
         <Link href="/issues/new">
           <Button>
             <span className="flex items-center">
               <PlusIcon size={18} className="mr-2" />
-              New Issue
+              Nueva Incidencia
             </span>
           </Button>
         </Link>
@@ -29,10 +29,10 @@ export default async function DashboardPage() {
         <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-dark-border-default bg-white dark:bg-dark-high shadow-sm">
           {/* Header row */}
           <div className="grid grid-cols-12 gap-4 px-6 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-dark-elevated border-b border-gray-200 dark:border-dark-border-default">
-            <div className="col-span-5">Title</div>
-            <div className="col-span-2">Status</div>
-            <div className="col-span-2">Priority</div>
-            <div className="col-span-3">Created</div>
+            <div className="col-span-5">Titulo</div>
+            <div className="col-span-2">Estado</div>
+            <div className="col-span-2">Prioridad</div>
+            <div className="col-span-3">Creado</div>
           </div>
 
           {/* Issue rows */}
@@ -49,12 +49,12 @@ export default async function DashboardPage() {
                   </div>
                   <div className="col-span-2">
                     <Badge status={issue.status as Status}>
-                      {ISSUE_STATUS[issue.status as Status].label}
+                      {ISSUE_STATUS[issue.status as Status]?.label || issue.status}
                     </Badge>
                   </div>
                   <div className="col-span-2">
                     <Badge priority={issue.priority as Priority}>
-                      {ISSUE_PRIORITY[issue.priority as Priority].label}
+                      {ISSUE_PRIORITY[issue.priority as Priority]?.label || issue.priority}
                     </Badge>
                   </div>
                   <div className="col-span-3 text-sm text-gray-500 dark:text-gray-400">
@@ -67,15 +67,15 @@ export default async function DashboardPage() {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-12 text-center border border-gray-200 dark:border-dark-border-default rounded-lg bg-white dark:bg-dark-high p-8">
-          <h3 className="text-lg font-medium mb-2">No issues found</h3>
+          <h3 className="text-lg font-medium mb-2">No se encontraron incidencias</h3>
           <p className="text-gray-500 dark:text-gray-400 mb-6">
-            Get started by creating your first issue.
+            Comienza creando tu primera incidencia.
           </p>
           <Link href="/issues/new">
             <Button>
               <span className="flex items-center">
                 <PlusIcon size={18} className="mr-2" />
-                Create Issue
+                Crear Incidencia
               </span>
             </Button>
           </Link>

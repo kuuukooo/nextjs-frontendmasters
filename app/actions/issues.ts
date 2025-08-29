@@ -5,25 +5,23 @@ import { issues } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { getCurrentUser } from '@/lib/dal'
 import { z } from 'zod'
-import { mockDelay } from '@/lib/utils'
-import { revalidateTag } from 'next/cache'
 // Define Zod schema for issue validation
 const IssueSchema = z.object({
   title: z
     .string()
-    .min(3, 'Title must be at least 3 characters')
-    .max(100, 'Title must be less than 100 characters'),
+    .min(3, 'El titulo debe ser de al menos 3 caracteres')
+    .max(100, 'El titulo debe ser de menos de 100 caracteres  '),
 
   description: z.string().optional().nullable(),
 
   status: z.enum(['backlog', 'todo', 'in_progress', 'done'], {
-    errorMap: () => ({ message: 'Please select a valid status' }),
+    errorMap: () => ({ message: 'Por favor selecciona un estado válido.' }),
   }),
 
   priority: z.enum(['low', 'medium', 'high'], {
-    errorMap: () => ({ message: 'Please select a valid priority' }),
+    errorMap: () => ({ message: 'Por favor selecciona una prioridad válida.' }),
   }),
-  userId: z.string().min(1, 'User ID is required'),
+  userId: z.string().min(1, 'Se requiere el ID de usuario'),
 })
 
 export type IssueData = z.infer<typeof IssueSchema>
@@ -37,28 +35,24 @@ export type ActionResponse = {
 
 export async function createIssue(data: IssueData): Promise<ActionResponse> {
   try {
-    // Security check - ensure user is authenticated
-    await mockDelay(700)
     const user = await getCurrentUser()
     if (!user) {
       return {
         success: false,
-        message: 'Unauthorized access',
-        error: 'Unauthorized',
+        message: 'Acceso no autorizado',
+        error: 'No autorizado',
       }
     }
 
-    // Validate with Zod
     const validationResult = IssueSchema.safeParse(data)
     if (!validationResult.success) {
       return {
         success: false,
-        message: 'Validation failed',
+        message: 'La validación falló',
         errors: validationResult.error.flatten().fieldErrors,
       }
     }
 
-    // Create issue with validated data
     const validatedData = validationResult.data
     await db.insert(issues).values({
       title: validatedData.title,
@@ -68,15 +62,13 @@ export async function createIssue(data: IssueData): Promise<ActionResponse> {
       userId: validatedData.userId,
     })
 
-    revalidateTag('issues')
-
-    return { success: true, message: 'Issue created successfully' }
+    return { success: true, message: 'Incidencia creada con éxito' }
   } catch (error) {
-    console.error('Error creating issue:', error)
+    console.error('Error creando la incidencia:', error)
     return {
       success: false,
-      message: 'An error occurred while creating the issue',
-      error: 'Failed to create issue',
+      message: 'Ocurrió un error al crear la incidencia',
+      error: 'No se pudo crear la incidencia',
     }
   }
 }
@@ -86,30 +78,26 @@ export async function updateIssue(
   data: Partial<IssueData>
 ): Promise<ActionResponse> {
   try {
-    // Security check - ensure user is authenticated
-    await mockDelay(700)
     const user = await getCurrentUser()
     if (!user) {
       return {
         success: false,
-        message: 'Unauthorized access',
-        error: 'Unauthorized',
+        message: 'Acceso no autorizado',
+        error: 'No autorizado',
       }
     }
 
-    // Allow partial validation for updates
     const UpdateIssueSchema = IssueSchema.partial()
     const validationResult = UpdateIssueSchema.safeParse(data)
 
     if (!validationResult.success) {
       return {
         success: false,
-        message: 'Validation failed',
+        message: 'La validación falló',
         errors: validationResult.error.flatten().fieldErrors,
       }
     }
 
-    // Type safe update object with validated data
     const validatedData = validationResult.data
     const updateData: Record<string, unknown> = {}
 
@@ -125,36 +113,33 @@ export async function updateIssue(
     // Update issue
     await db.update(issues).set(updateData).where(eq(issues.id, id))
 
-    return { success: true, message: 'Issue updated successfully' }
+    return { success: true, message: 'Incidencia actualizada con éxito' }
   } catch (error) {
-    console.error('Error updating issue:', error)
+    console.error('Error actualizando la incidencia:', error)
     return {
       success: false,
-      message: 'An error occurred while updating the issue',
-      error: 'Failed to update issue',
+      message: 'Ocurrió un error al actualizar la incidencia',
+      error: 'No se pudo actualizar la incidencia',
     }
   }
 }
 
 export async function deleteIssue(id: number) {
   try {
-    // Security check - ensure user is authenticated
-    await mockDelay(700)
     const user = await getCurrentUser()
     if (!user) {
-      throw new Error('Unauthorized')
+      throw new Error('No autorizado')
     }
 
-    // Delete issue
     await db.delete(issues).where(eq(issues.id, id))
 
-    return { success: true, message: 'Issue deleted successfully' }
+    return { success: true, message: 'Incidencia eliminada con éxito' }
   } catch (error) {
-    console.error('Error deleting issue:', error)
+    console.error('Error eliminando la incidencia:', error)
     return {
       success: false,
-      message: 'An error occurred while deleting the issue',
-      error: 'Failed to delete issue',
+      message: 'Ocurrió un error al eliminar la incidencia',
+      error: 'No se pudo eliminar la incidencia',
     }
   }
 }

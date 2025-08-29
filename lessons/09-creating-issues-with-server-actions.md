@@ -138,6 +138,8 @@ const NewIssue = async () => {
 export default NewIssue
 ```
 
+/app/components/IssueForm.tsx
+
 ```tsx
 'use client'
 
