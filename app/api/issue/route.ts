@@ -7,9 +7,9 @@ export async function GET() {
     const allIssues = await db.query.issues.findMany()
     return NextResponse.json(allIssues)
   } catch (error) {
-    console.error('Error fetching issues:', error)
+    console.error('Error obteniendo incidencias:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch issues' },
+      { error: 'No se pudo obtener las incidencias' },
       { status: 500 }
     )
   }
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     // Validate required fields
     if (!data.title || !data.userId) {
       return NextResponse.json(
-        { error: 'Title and userId are required' },
+        { error: 'El titulo y el id del usuario son requeridos.' },
         { status: 400 }
       )
     }
@@ -40,13 +40,13 @@ export async function POST(request: Request) {
       .returning()
 
     return NextResponse.json(
-      { message: 'Issue created successfully', issue: newIssue[0] },
+      { message: 'Incidencia creada de forma exitosa', issue: newIssue[0] },
       { status: 201 }
     )
   } catch (error) {
-    console.error('Error creating issue:', error)
+    console.error('Error creando la incidencia:', error)
     return NextResponse.json(
-      { error: 'Failed to create issue' },
+      { error: 'No se pudo crear la incidencia' },
       { status: 500 }
     )
   }

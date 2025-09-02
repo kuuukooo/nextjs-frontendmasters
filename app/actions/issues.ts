@@ -5,6 +5,8 @@ import { issues } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { getCurrentUser } from '@/lib/dal'
 import { z } from 'zod'
+import { revalidateTag } from 'next/cache'
+
 
 // Define Zod schema for issue validation
 const IssueSchema = z.object({
@@ -63,6 +65,8 @@ export async function createIssue(data: IssueData): Promise<ActionResponse> {
       userId: validatedData.userId,
     })
 
+    revalidateTag('issues')
+
     return { success: true, message: 'Incidencia creada con éxito' }
   } catch (error) {
     console.error('Error creando la incidencia:', error)
@@ -111,12 +115,11 @@ export async function updateIssue(
     if (validatedData.priority !== undefined)
       updateData.priority = validatedData.priority
 
-    // Update issue
     await db.update(issues).set(updateData).where(eq(issues.id, id))
 
     return { success: true, message: 'Incidencia actualizada con éxito' }
   } catch (error) {
-    console.error('Error actualizando la incidencia:', error)
+    console.error('Error actualizando incidencia:', error)
     return {
       success: false,
       message: 'Ocurrió un error al actualizar la incidencia',
@@ -136,7 +139,7 @@ export async function deleteIssue(id: number) {
 
     return { success: true, message: 'Incidencia eliminada con éxito' }
   } catch (error) {
-    console.error('Error eliminando la incidencia:', error)
+    console.error('Error eliminando incidencia:', error)
     return {
       success: false,
       message: 'Ocurrió un error al eliminar la incidencia',

@@ -15,14 +15,14 @@ export async function GET(
     })
 
     if (!issue) {
-      return NextResponse.json({ error: 'Issue not found' }, { status: 404 })
+      return NextResponse.json({ error: 'Incidencia no encontrada' }, { status: 404 })
     }
 
     return NextResponse.json(issue)
   } catch (error) {
-    console.error('Error fetching issue:', error)
+    console.error('Error obteniendo la incidencia:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch issue' },
+      { error: 'No se pudo obtener la incidencia' },
       { status: 500 }
     )
   }
